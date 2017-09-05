@@ -701,7 +701,7 @@
  */
 #define X_PROBE_OFFSET_FROM_EXTRUDER -18  // X offset: -left  +right  [of the nozzle] // no floats here!
 #define Y_PROBE_OFFSET_FROM_EXTRUDER 11  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 0  // Z offset: -below +above  [the nozzle]      // here floats are possible
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.5  // Z offset: -below +above  [the nozzle]      // here floats are possible
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 10
