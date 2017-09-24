@@ -416,9 +416,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  // #define  DEFAULT_bedKp 10.00
+  // #define  DEFAULT_bedKi .023
+  // #define  DEFAULT_bedKd 305.4
 
 
   // result of
@@ -427,6 +427,28 @@
   // #define  DEFAULT_bedKp 309.22
   // #define  DEFAULT_bedKi 57.19
   // #define  DEFAULT_bedKd 417.99
+
+  // again
+  // M303 E-1 C8 S60
+  // #define  DEFAULT_bedKp 308.74
+  // #define  DEFAULT_bedKi 60.79
+  // #define  DEFAULT_bedKd 392.03
+
+  // M303 E-1 C8 S70
+  // #define  DEFAULT_bedKp 328.16
+  // #define  DEFAULT_bedKi 61.63
+  // #define  DEFAULT_bedKd 436.82
+
+  // again
+  // M303 E-1 C8 S70
+  // UPDATE: now 12 Minutes at 60 degrees with this
+  // Setting
+  // ...now again failed!
+  #define  DEFAULT_bedKp 357.47
+  #define  DEFAULT_bedKi 69.27
+  #define  DEFAULT_bedKd 461.19
+
+
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -710,7 +732,7 @@
  */
 #define X_PROBE_OFFSET_FROM_EXTRUDER 26  // X offset: -left  +right  [of the nozzle] // no floats here!
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -6  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.3 // Z offset: -below +above  [the nozzle]      // here floats are possible ... really???
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.45 // Z offset: -below +above  [the nozzle]      // here floats are possible ... really???
 // was -1.5 with tape
 
 // Certain types of probes need to stay away from edges
@@ -818,7 +840,7 @@
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS -30
-#define Z_MIN_POS 0
+#define Z_MIN_POS -5
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 220
@@ -1061,7 +1083,7 @@
 // For DELTA this is the top-center of the Cartesian print volume.
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
-//#define MANUAL_Z_HOME_POS 0
+#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
