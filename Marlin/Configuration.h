@@ -444,9 +444,18 @@
   // UPDATE: now 12 Minutes at 60 degrees with this
   // Setting
   // ...now again failed!
-  #define  DEFAULT_bedKp 357.47
-  #define  DEFAULT_bedKi 69.27
-  #define  DEFAULT_bedKd 461.19
+  // #define  DEFAULT_bedKp 357.47
+  // #define  DEFAULT_bedKi 69.27
+  // #define  DEFAULT_bedKd 461.19
+
+  // update 01.11.2017
+  // now with cardboard isolation did
+  // M303 E-1 S90 C8
+  // :
+  #define  DEFAULT_bedKp 346.21
+  #define  DEFAULT_bedKi 66.03
+  #define  DEFAULT_bedKd 453.80
+  // works pretty nice now :)))
 
 
 
