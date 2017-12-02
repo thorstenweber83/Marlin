@@ -392,7 +392,7 @@
   #define  DEFAULT_Kp 12.45
   #define  DEFAULT_Ki 0.92
   #define  DEFAULT_Kd 42.05
-  // sieht ganz gut aus! 
+  // sieht ganz gut aus!
 
 #endif // PIDTEMP
 
