@@ -366,14 +366,14 @@
   //#define  DEFAULT_Kp 63.0
   //#define  DEFAULT_Ki 2.25
   //#define  DEFAULT_Kd 440
-  
+
 
   // 04.11.2017: installed new heat cartridge after the old one died
   // M303 E0 S210 C8
   #define  DEFAULT_Kp 12.45
   #define  DEFAULT_Ki 0.92
   #define  DEFAULT_Kd 42.05
-  // sieht ganz gut aus! 
+  // sieht ganz gut aus!
 
 #endif // PIDTEMP
 
