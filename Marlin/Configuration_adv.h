@@ -1808,6 +1808,28 @@
  * to the driver side PDN_UART pin with a 1K resistor.
  * To use the reading capabilities, also connect #_SERIAL_RX_PIN to PDN_UART without
  * a resistor.
+ */
+#define HAVE_TMC2130
+
+#if ENABLED(HAVE_TMC2130)  // Choose your axes here. This is mandatory!
+  #define X_IS_TMC2130
+  //#define X2_IS_TMC2130
+  #define Y_IS_TMC2130
+  //#define Y2_IS_TMC2130
+  #define Z_IS_TMC2130
+  //#define Z2_IS_TMC2130
+  #define E0_IS_TMC2130
+  //#define E1_IS_TMC2130
+  //#define E2_IS_TMC2130
+  //#define E3_IS_TMC2130
+  //#define E4_IS_TMC2130
+#endif
+
+/**
+ * Enable this for SilentStepStick Trinamic TMC2208 UART-configurable stepper drivers.
+ * Connect #_SERIAL_TX_PIN to the driver side PDN_UART pin with a 1K resistor.
+ * To use the reading capabilities, also connect #_SERIAL_RX_PIN
+ * to PDN_UART without a resistor.
  * The drivers can also be used with hardware serial.
  *
  * TMCStepper library is required to use TMC stepper drivers.
@@ -2007,7 +2029,7 @@
    * M912 - Clear stepper driver overtemperature pre-warn condition flag.
    * M122 - Report driver parameters (Requires TMC_DEBUG)
    */
-  //#define MONITOR_DRIVER_STATUS
+  #define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
     #define CURRENT_STEP_DOWN     50  // [mA]
@@ -2063,7 +2085,7 @@
    *
    * TMC2209 requires STEALTHCHOP enabled for SENSORLESS_HOMING
    */
-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
+  #define SENSORLESS_HOMING // StallGuard capable drivers only
 
   /**
    * Use StallGuard2 to probe the bed with the nozzle.
