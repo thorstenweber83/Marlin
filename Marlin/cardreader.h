@@ -20,17 +20,18 @@
  *
  */
 
-#ifndef CARDREADER_H
-#define CARDREADER_H
+#ifndef _CARDREADER_H_
+#define _CARDREADER_H_
 
 #include "MarlinConfig.h"
 
 #if ENABLED(SDSUPPORT)
 
+#define SD_RESORT ENABLED(SDCARD_SORT_ALPHA) && ENABLED(SDSORT_DYNAMIC_RAM)
+
 #define MAX_DIR_DEPTH 10          // Maximum folder depth
 
 #include "SdFile.h"
-
 #include "types.h"
 #include "enum.h"
 
@@ -40,18 +41,24 @@ public:
 
   void initsd();
   void write_command(char *buf);
-  //files auto[0-9].g on the sd card are performed in a row
-  //this is to delay autostart and hence the initialisaiton of the sd card to some seconds after the normal init, so the device is available quick after a reset
+  // Files auto[0-9].g on the sd card are performed in sequence.
+  // This is to delay autostart and hence the initialisation of
+  // the sd card to some seconds after the normal init, so the
+  // device is available soon after a reset.
 
   void checkautostart(bool x);
-  void openFile(char* name, bool read, bool push_current=false);
+  void openFile(char* name, const bool read, const bool subcall=false);
   void openLogFile(char* name);
-  void removeFile(char* name);
+  void removeFile(const char * const name);
   void closefile(bool store_location=false);
   void release();
   void openAndPrintFile(const char *name);
   void startFileprint();
-  void stopSDPrint();
+  void stopSDPrint(
+    #if SD_RESORT
+      const bool re_sort=false
+    #endif
+  );
   void getStatus();
   void printingHasFinished();
 
@@ -66,8 +73,10 @@ public:
 
   void ls();
   void chdir(const char *relpath);
-  void updir();
+  int8_t updir();
   void setroot();
+
+  uint16_t get_num_Files();
 
   #if ENABLED(SDCARD_SORT_ALPHA)
     void presort();
@@ -87,10 +96,19 @@ public:
   FORCE_INLINE uint8_t percentDone() { return (isFileOpen() && filesize) ? sdpos / ((filesize + 99) / 100) : 0; }
   FORCE_INLINE char* getWorkDirName() { workDir.getFilename(filename); return filename; }
 
-public:
+  #if ENABLED(AUTO_REPORT_SD_STATUS)
+    void auto_report_sd_status(void);
+    FORCE_INLINE void set_auto_report_interval(uint8_t v) {
+      NOMORE(v, 60);
+      auto_report_sd_interval = v;
+      next_sd_report_ms = millis() + 1000UL * v;
+    }
+  #endif
+
   bool saving, logging, sdprinting, cardOK, filenameIsDir;
   char filename[FILENAME_LENGTH], longFilename[LONG_FILENAME_LENGTH];
   int autostart_index;
+
 private:
   SdFile root, *curDir, workDir, workDirParents[MAX_DIR_DEPTH];
   uint8_t workDirDepth;
@@ -111,6 +129,12 @@ private:
       uint8_t sort_order[SDSORT_LIMIT];
     #endif
 
+    #if ENABLED(SDSORT_USES_RAM) && ENABLED(SDSORT_CACHE_NAMES) && DISABLED(SDSORT_DYNAMIC_RAM)
+      #define SORTED_LONGNAME_MAXLEN ((SDSORT_CACHE_VFATS) * (FILENAME_LENGTH) + 1)
+    #else
+      #define SORTED_LONGNAME_MAXLEN LONG_FILENAME_LENGTH
+    #endif
+
     // Cache filenames to speed up SD menus.
     #if ENABLED(SDSORT_USES_RAM)
 
@@ -120,10 +144,10 @@ private:
           char **sortshort, **sortnames;
         #else
           char sortshort[SDSORT_LIMIT][FILENAME_LENGTH];
-          char sortnames[SDSORT_LIMIT][FILENAME_LENGTH];
+          char sortnames[SDSORT_LIMIT][SORTED_LONGNAME_MAXLEN];
         #endif
       #elif DISABLED(SDSORT_USES_STACK)
-        char sortnames[SDSORT_LIMIT][FILENAME_LENGTH];
+        char sortnames[SDSORT_LIMIT][SORTED_LONGNAME_MAXLEN];
       #endif
 
       // Folder sorting uses an isDir array when caching items.
@@ -148,8 +172,7 @@ private:
   uint8_t file_subcall_ctr;
   uint32_t filespos[SD_PROCEDURE_DEPTH];
   char proc_filenames[SD_PROCEDURE_DEPTH][MAXPATHNAMELENGTH];
-  uint32_t filesize;
-  uint32_t sdpos;
+  uint32_t filesize, sdpos;
 
   millis_t next_autostart_ms;
   bool autostart_stilltocheck; //the sd start is delayed, because otherwise the serial cannot answer fast enought to make contact with the hostsoftware.
@@ -162,29 +185,34 @@ private:
   #if ENABLED(SDCARD_SORT_ALPHA)
     void flush_presort();
   #endif
+
+  #if ENABLED(AUTO_REPORT_SD_STATUS)
+    static uint8_t auto_report_sd_interval;
+    static millis_t next_sd_report_ms;
+  #endif
 };
-
-extern CardReader card;
-
-#define IS_SD_PRINTING (card.sdprinting)
-#define IS_SD_FILE_OPEN (card.isFileOpen())
 
 #if PIN_EXISTS(SD_DETECT)
   #if ENABLED(SD_DETECT_INVERTED)
-    #define IS_SD_INSERTED (READ(SD_DETECT_PIN) != 0)
+    #define IS_SD_INSERTED (READ(SD_DETECT_PIN) == HIGH)
   #else
-    #define IS_SD_INSERTED (READ(SD_DETECT_PIN) == 0)
+    #define IS_SD_INSERTED (READ(SD_DETECT_PIN) == LOW)
   #endif
 #else
-  //No card detect line? Assume the card is inserted.
+  // No card detect line? Assume the card is inserted.
   #define IS_SD_INSERTED true
 #endif
 
-#else
-
-#define IS_SD_PRINTING (false)
-#define IS_SD_FILE_OPEN (false)
+extern CardReader card;
 
 #endif // SDSUPPORT
 
-#endif // __CARDREADER_H
+#if ENABLED(SDSUPPORT)
+  #define IS_SD_PRINTING (card.sdprinting)
+  #define IS_SD_FILE_OPEN (card.isFileOpen())
+#else
+  #define IS_SD_PRINTING (false)
+  #define IS_SD_FILE_OPEN (false)
+#endif
+
+#endif // _CARDREADER_H_
