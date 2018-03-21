@@ -1059,13 +1059,13 @@
   #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
-  #define X_CURRENT          600  // rms current in mA. Multiply by 1.41 for peak current.
+  #define X_CURRENT         1100  // rms current in mA. Multiply by 1.41 for peak current.
   #define X_MICROSTEPS        16  // 0..256
 
-  #define Y_CURRENT          600
+  #define Y_CURRENT         1100
   #define Y_MICROSTEPS        16
 
-  #define Z_CURRENT          600
+  #define Z_CURRENT          700
   #define Z_MICROSTEPS        16
 
   #define X2_CURRENT         800
@@ -1077,7 +1077,7 @@
   #define Z2_CURRENT         800
   #define Z2_MICROSTEPS       16
 
-  #define E0_CURRENT         600
+  #define E0_CURRENT         700
   #define E0_MICROSTEPS       16
 
   #define E1_CURRENT         800
@@ -1106,7 +1106,7 @@
    * Use Trinamic's ultra quiet stepping mode.
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
-  //#define STEALTHCHOP
+  #define STEALTHCHOP
 
   /**
    * Monitor Trinamic TMC2130 and TMC2208 drivers for error conditions,
