@@ -516,8 +516,8 @@
 // @section homing
 
 // Homing hits each endstop, retracts by these distances, then does a slower bump.
-#define X_HOME_BUMP_MM 5
-#define Y_HOME_BUMP_MM 5
+#define X_HOME_BUMP_MM 0
+#define Y_HOME_BUMP_MM 0
 #define Z_HOME_BUMP_MM 2
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 //#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
@@ -1809,7 +1809,7 @@
  * To use the reading capabilities, also connect #_SERIAL_RX_PIN to PDN_UART without
  * a resistor.
  */
-//#define HAVE_TMC2130
+#define HAVE_TMC2130
 
 #if ENABLED(HAVE_TMC2130)  // Choose your axes here. This is mandatory!
   #define X_IS_TMC2130
