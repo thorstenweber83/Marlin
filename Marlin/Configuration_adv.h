@@ -1063,7 +1063,7 @@
   #define X_CURRENT          600  // rms current in mA. Multiply by 1.41 for peak current.
   #define X_MICROSTEPS        16  // 0..256
 
-  #define Y_CURRENT          600
+  #define Y_CURRENT          700
   #define Y_MICROSTEPS        16
 
   #define Z_CURRENT          600
