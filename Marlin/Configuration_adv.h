@@ -399,7 +399,7 @@
 #define DISABLE_INACTIVE_E true
 
 #define DEFAULT_MINIMUMFEEDRATE       0.0     // minimum feedrate
-#define DEFAULT_MINTRAVELFEEDRATE     2.0     // setting this to 2.0 fixes resonance issue with new "fixed" z-axis
+#define DEFAULT_MINTRAVELFEEDRATE     0.0
 
 //#define HOME_AFTER_DEACTIVATE  // Require rehoming after steppers are deactivated
 
