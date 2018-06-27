@@ -389,10 +389,16 @@
 
   // 04.11.2017: installed new heat cartridge after the old one died
   // M303 E0 S210 C8
-  #define  DEFAULT_Kp 12.45
-  #define  DEFAULT_Ki 0.92
-  #define  DEFAULT_Kd 42.05
+  // #define  DEFAULT_Kp 12.45
+  // #define  DEFAULT_Ki 0.92
+  // #define  DEFAULT_Kd 42.05
   // sieht ganz gut aus!
+
+  // 11.06.2018: tuned again with titan x carriage and new fan shroud
+  // M303 C10 E0 S210
+  #define DEFAULT_Kp 22.32
+  #define DEFAULT_Ki 1.97
+  #define DEFAULT_Kd 63.08
 
 #endif // PIDTEMP
 
