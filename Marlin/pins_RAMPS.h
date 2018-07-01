@@ -113,7 +113,7 @@
 #define E0_DIR_PIN         28
 #define E0_ENABLE_PIN      24
 #ifndef E0_CS_PIN
-  #define E0_CS_PIN        11
+  #define E0_CS_PIN        42
 #endif
 
 #define E1_STEP_PIN        36
