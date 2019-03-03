@@ -371,9 +371,9 @@
 
   // Brunhilde @12v
   // m303 E0 C10 S220
-  #define DEFAULT_Kp 25.97
-  #define DEFAULT_Ki 2.58
-  #define DEFAULT_Kd 65.43
+  #define DEFAULT_Kp 21.36
+  #define DEFAULT_Ki 1.70
+  #define DEFAULT_Kd 66.92
 
   // Ultimaker
   //#define DEFAULT_Kp 22.2
