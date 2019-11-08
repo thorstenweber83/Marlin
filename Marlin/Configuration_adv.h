@@ -1798,34 +1798,6 @@
 // @section tmc_smart
 
 /**
- * To use TMC2130, TMC2160, TMC2660, TMC5130, TMC5160 stepper drivers in SPI mode
- * connect your SPI pins to the hardware SPI interface on your board and define
- * the required CS pins in your `pins_MYBOARD.h` file. (e.g., RAMPS 1.4 uses AUX3
- * pins `X_CS_PIN 53`, `Y_CS_PIN 49`, etc.).
- * You may also use software SPI if you wish to use general purpose IO pins.
- *
- * To use TMC2208 stepper UART-configurable stepper drivers connect #_SERIAL_TX_PIN
- * to the driver side PDN_UART pin with a 1K resistor.
- * To use the reading capabilities, also connect #_SERIAL_RX_PIN to PDN_UART without
- * a resistor.
- */
-#define HAVE_TMC2130
-
-#if ENABLED(HAVE_TMC2130)  // Choose your axes here. This is mandatory!
-  #define X_IS_TMC2130
-  //#define X2_IS_TMC2130
-  #define Y_IS_TMC2130
-  //#define Y2_IS_TMC2130
-  #define Z_IS_TMC2130
-  //#define Z2_IS_TMC2130
-  #define E0_IS_TMC2130
-  //#define E1_IS_TMC2130
-  //#define E2_IS_TMC2130
-  //#define E3_IS_TMC2130
-  //#define E4_IS_TMC2130
-#endif
-
-/**
  * Enable this for SilentStepStick Trinamic TMC2208 UART-configurable stepper drivers.
  * Connect #_SERIAL_TX_PIN to the driver side PDN_UART pin with a 1K resistor.
  * To use the reading capabilities, also connect #_SERIAL_RX_PIN
